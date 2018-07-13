@@ -77,6 +77,7 @@ export default class Swipeable extends PureComponent {
     swipeStartMinLeftEdgeClearance: PropTypes.number,
     swipeStartMinRightEdgeClearance: PropTypes.number,
     disable: PropTypes.bool,
+    onBounceOnMountComplete: PropTypes.func,
 
     // styles
     style: ViewPropTypes.style,
@@ -216,7 +217,7 @@ export default class Swipeable extends PureComponent {
     if (this._canSwipeLeft()) {
       this.bounceRight(this.bounceLeft);
     } else if (this._canSwipeRight()) {
-      this.bounceLeft();
+      this.bounceLeft(this.props.onBounceOnMountComplete);
     }
   };
 
