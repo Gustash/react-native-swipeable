@@ -227,10 +227,18 @@ export default class Swipeable extends PureComponent {
   };
 
   _bounceOnMount = () => {
+    const { onBounceOnMountComplete } = this.props;
+
     if (this._canSwipeLeft()) {
-      this.bounceRight(this.bounceLeft);
+      this.bounceRight(() => {
+        if (this._canSwipeRight()) {
+          this.bounceLeft(onBounceOnMountComplete)
+        } else {
+          onBounceOnMountComplete()
+        }
+      });
     } else if (this._canSwipeRight()) {
-      this.bounceLeft(this.props.onBounceOnMountComplete);
+      this.bounceLeft(onBounceOnMountComplete);
     }
   };
 
